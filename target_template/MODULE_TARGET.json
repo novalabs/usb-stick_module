@@ -1,0 +1,17 @@
+{
+  "name": "@@NAME@@",
+  "description": "@@DESCRIPTION@@",
+  "module": "usb-stick",
+  "os_version": "CHIBIOS_16",
+  "required_os_components": [],
+  "required_packages": [
+    "common_msgs",
+    "led"
+  ],
+  "sources": [
+    "main.cpp"
+  ],
+  "includes": [],
+  "bootloader_size": 0,
+  "configuration_size": 0
+}

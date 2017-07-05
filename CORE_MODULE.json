@@ -1,0 +1,22 @@
+{
+  "name": "usb-stick",
+  "description": "USB",
+  "chip": "STM32F303CC",
+  "required_packages": [
+    "stm32_flash",
+    "stm32_crc",
+    "snippets"
+  ],
+  "chibios_components": [
+    "rt",
+    "hal",
+    "pal",
+    "serial",
+    "serial_usb",
+    "hal_buffers",
+    "usb",
+    "chprintf",
+    "shell",
+    "syscalls"
+  ]
+}

@@ -4,6 +4,8 @@
  * subject to the License Agreement located in the file LICENSE.
  */
 
+#include <core/snippets/CortexMxFaultHandlers.h>
+
 #include <core/mw/Middleware.hpp>
 #include <core/mw/transport/RTCANTransport.hpp>
 #if CORE_USE_BRIDGE_MODE
@@ -138,7 +140,11 @@ Module::Module()
 bool
 Module::initialize()
 {
-//	CORE_ASSERT(core::mw::Middleware::instance.is_stopped()); // TODO: capire perche non va...
+#ifdef _DEBUG
+    FAULT_HANDLERS_ENABLE(true);
+#else
+    FAULT_HANDLERS_ENABLE(false);
+#endif
 
     static bool initialized = false;
 

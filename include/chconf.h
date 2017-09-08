@@ -36,9 +36,11 @@
 #ifndef _CHCONF_H_
 #define _CHCONF_H_
 
-#define DEBUG_CHIBI FALSE
-
-//#define CORTEX_VTOR_INIT 0x2000
+#ifdef _DEBUG
+#define DEBUG_CHIBIOS TRUE
+#else
+#define DEBUG_CHIBIOS FALSE
+#endif
 
 /*===========================================================================*/
 /**
@@ -336,7 +338,7 @@
  *
  * @note    The default is @p FALSE.
  */
-#define CH_DBG_STATISTICS                   DEBUG_CHIBI
+#define CH_DBG_STATISTICS                   DEBUG_CHIBIOS
 
 /**
  * @brief   Debug option, system state check.
@@ -345,7 +347,7 @@
  *
  * @note    The default is @p FALSE.
  */
-#define CH_DBG_SYSTEM_STATE_CHECK           DEBUG_CHIBI
+#define CH_DBG_SYSTEM_STATE_CHECK           DEBUG_CHIBIOS
 
 /**
  * @brief   Debug option, parameters checks.
@@ -354,7 +356,7 @@
  *
  * @note    The default is @p FALSE.
  */
-#define CH_DBG_ENABLE_CHECKS                DEBUG_CHIBI
+#define CH_DBG_ENABLE_CHECKS                DEBUG_CHIBIOS
 
 /**
  * @brief   Debug option, consistency checks.
@@ -364,7 +366,7 @@
  *
  * @note    The default is @p FALSE.
  */
-#define CH_DBG_ENABLE_ASSERTS               DEBUG_CHIBI
+#define CH_DBG_ENABLE_ASSERTS               DEBUG_CHIBIOS
 
 /**
  * @brief   Debug option, trace buffer.
@@ -373,7 +375,7 @@
  *
  * @note    The default is @p FALSE.
  */
-#define CH_DBG_ENABLE_TRACE                 DEBUG_CHIBI
+#define CH_DBG_ENABLE_TRACE                 DEBUG_CHIBIOS
 
 /**
  * @brief   Debug option, stack checks.
@@ -385,7 +387,7 @@
  * @note    The default failure mode is to halt the system with the global
  *          @p panic_msg variable set to @p NULL.
  */
-#define CH_DBG_ENABLE_STACK_CHECK           DEBUG_CHIBI
+#define CH_DBG_ENABLE_STACK_CHECK           DEBUG_CHIBIOS
 
 /**
  * @brief   Debug option, stacks initialization.
@@ -395,7 +397,7 @@
  *
  * @note    The default is @p FALSE.
  */
-#define CH_DBG_FILL_THREADS                 FALSE
+#define CH_DBG_FILL_THREADS                 DEBUG_CHIBIOS
 
 /**
  * @brief   Debug option, threads profiling.
@@ -406,7 +408,7 @@
  * @note    This debug option is not currently compatible with the
  *          tickless mode.
  */
-#define CH_DBG_THREADS_PROFILING            DEBUG_CHIBI
+#define CH_DBG_THREADS_PROFILING            DEBUG_CHIBIOS
 
 /** @} */
 

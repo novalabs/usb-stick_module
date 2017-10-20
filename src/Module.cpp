@@ -14,7 +14,6 @@
 
 #include "ch.h"
 #include "hal.h"
-#include "usbcfg.h"
 
 #include <core/hw/GPIO.hpp>
 #include <core/hw/SDU.hpp>
@@ -46,6 +45,7 @@ using STREAM       = core::os::IOChannel_<SDU_1_STREAM, core::os::IOChannel::Def
 static STREAM _stream;
 
 // MODULE DEVICES
+core::hw::SDU _sdu;
 core::os::IOChannel& Module::stream = _stream;
 
 
@@ -154,18 +154,19 @@ Module::initialize()
         /*
          * Initializes a serial-over-USB CDC driver.
          */
-        sduObjectInit(core::hw::SDU_1::driver);
-        sduStart(core::hw::SDU_1::driver, &serusbcfg);
+        _sdu.setDescriptors(core::hw::SDUDefaultDescriptors::static_callback());
+        _sdu.init();
+        _sdu.start();
 
         /*
          * Activates the USB driver and then the USB bus pull-up on D+.
          * Note, a delay is inserted in order to not have to disconnect the cable
          * after a reset.
          */
-        usbDisconnectBus(serusbcfg.usbp);
+        usbDisconnectBus(&USBD1);
         chThdSleepMilliseconds(1500);
-        usbStart(serusbcfg.usbp, &usbcfg);
-        usbConnectBus(serusbcfg.usbp);
+        usbStart(&USBD1, _sdu.usbcfg());
+        usbConnectBus(&USBD1);
 
         core::mw::Middleware::instance().initialize(name(), management_thread_stack, management_thread_stack.size(), core::os::Thread::LOWEST);
 

@@ -44,7 +44,7 @@
 #define STM32_LSEDRV                (3 << 3)
 
 #if !defined(STM32_HSECLK)
-#define STM32_HSECLK                24000000
+#define STM32_HSECLK                8000000
 #endif
 
 #define STM32_HSE_BYPASS

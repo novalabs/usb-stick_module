@@ -37,6 +37,9 @@ static char dbgtra_namebuf[64];
 static core::mw::DebugTransport      dbgtra("SDU1", reinterpret_cast<BaseChannel*>(core::hw::SDU_1::driver), dbgtra_namebuf);
 static core::os::Thread::Stack<2048> debug_transport_rx_stack;
 static core::os::Thread::Stack<2048> debug_transport_tx_stack;
+
+core::hw::SDU _sdu;
+
 #else
 
 // SERIAL DEVICES
@@ -126,6 +129,10 @@ Module::initialize()
         core::mw::Middleware::instance().initialize(name(), management_thread_stack, management_thread_stack.size(), core::os::Thread::LOWEST);
 
 #if CORE_USE_BRIDGE_MODE
+        while (usbGetDriverStateI(&USBD1) != USB_ACTIVE) {
+            chThdSleepMilliseconds(1);
+        }
+
         dbgtra.initialize(debug_transport_rx_stack, debug_transport_rx_stack.size(), core::os::Thread::NORMAL,
                           debug_transport_tx_stack, debug_transport_tx_stack.size(), core::os::Thread::NORMAL);
 #endif
